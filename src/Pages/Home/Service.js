@@ -1,47 +1,100 @@
+import { useQuery } from "@tanstack/react-query";
 import { data } from "autoprefixer";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { FaStar } from 'react-icons/fa';
+import { useForm } from "react-hook-form";
+import ServiceCard from "./ServiceCard";
+import "./Home.css";
 
 const Service = () => {
   const [services, setServices] = useState([]);
-  useEffect(() => {
-    fetch(`service.json`)
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const searchHotel = (data) => {
+    const hotelData = {
+      name: data.name,
+      money: data.money,
+    };
+    setLoading(true);
+    fetch(
+      `https://tour-travel-server-two.vercel.app/hotels/search?name=${data.name}&money=${data.money}`
+    )
       .then((res) => res.json())
       .then((data) => setServices(data));
-  }, []);
+    setLoading(false);
+    reset();
+  };
+  useEffect(() => {
+    setLoading(true);
+    fetch(`https://tour-travel-server-two.vercel.app/hotels`)
+      .then((res) => res.json())
+      .then((data) => setServices(data));
+    setLoading(false);
+  }, [setServices]);
+
+  //   const { data: servicesData = services, refetch, isLoading } = useQuery({
+  //     queryKey: ['services'],
+  //     queryFn: async () => {
+  //         const res = await fetch(`https://tour-travel-server-two.vercel.app/hotels`);
+  //         const data = await res.json();
+  //         return data
+  //     }
+  // });
+
   return (
-    <div className="mx-auto gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10">
-      {
-        services.map( service => <div key={service._id} className="w-full rounded-md shadow-md flex flex-col pb-4">
-        <div>
-          <img
-            src={service.image}
-            alt=""
-            className="rounded-t-md h-64 w-full object-cover"
+    <div>
+      <form
+        onSubmit={handleSubmit(searchHotel)}
+        className="flex flex-col  md:flex-row backdrop-blur-sm bg-white/30 text-white w-1/2 mx-auto py-3 rounded-md  items-center justify-center"
+      >
+        <div className="text-left px-2 my-2">
+          <input
+            type="text"
+            {...register("name")}
+            placeholder="City/Hotel/Resort/Area"
+            className="bg-transparent border-2 border-white w-full text-white focus:outline-none rounded-md py-2 text-xs pl-2"
           />
         </div>
-        <div className="px-4 pt-4">
-          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {service.title}
-          </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            {service.details.slice(0, 100)}
-          </p>
-          <div className="flex flex-wrap gap-2 my-4">
-            <span className="text-white font-medium">
-              ${service.price}
-            </span>
-            <div className="flex items-center gap-1 px-2 bg-teal-400 rounded-sm text-white">
-              <FaStar></FaStar> {service.ratings}
-            </div>
-          </div>
-          <Link to={`#`}>
-            <button className="bg-red-500 text-white px-3 py-2">View Details</button>
-          </Link>
+        <div className="text-left px-2 my-2">
+          <input
+            type="number"
+            {...register("money")}
+            placeholder="Budget"
+            className="bg-transparent border-2 border-white w-full text-white focus:outline-none rounded-md py-2 text-xs pl-2"
+          />
         </div>
-      </div>)
-      }
+        <div className="text-left px-2 my-2">
+          <button
+            type="submit"
+            className="bg-white text-red-500 font-[Poppins] duration-500 px-6 py-2 hover:bg-red-500 hover:text-white rounded"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+
+      {loading ? (
+        <div className="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      ) : (
+        <div className="mx-auto gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10">
+          {services.map((service, idx) => (
+            <ServiceCard key={idx} service={service}></ServiceCard>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
