@@ -5,11 +5,11 @@ import { FaBars, FaWindowClose } from "react-icons/fa";
 const Header = () => {
     const [open, setOpen] = useState(false);
     return (
-        <header>
+        <header className='absolute top-0 w-full'>
         <nav className="p-5 md:flex md:items-center md:justify-between md:place-items-center">
           <div className="flex justify-between place-items-center">
-            <Link to={'/'} className="text-2xl font-[Poppins] cursor-pointer text-red-500">
-              Travel Buddy
+            <Link to={'/'} className="text-4xl cursor-pointer text-white font-bold">
+              <span className='text-red-500'>Travel</span> Buddy
             </Link>
             <span
               onClick={() => setOpen(!open)}

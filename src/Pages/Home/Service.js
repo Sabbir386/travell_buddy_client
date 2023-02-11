@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ServiceCard from "./ServiceCard";
 import "./Home.css";
+import { FaSearch, FaSearchLocation } from "react-icons/fa";
 
 const Service = () => {
   const [services, setServices] = useState([]);
@@ -44,9 +45,12 @@ const Service = () => {
   //         return data
   //     }
   // });
+  if(loading){
+    return <h6>Loading...</h6>
+  }
 
   return (
-    <div>
+    <div className="-mt-10">
       <form
         onSubmit={handleSubmit(searchHotel)}
         className="flex flex-col  md:flex-row backdrop-blur-sm bg-white/30 text-white w-1/2 mx-auto py-3 rounded-md  items-center justify-center"
@@ -56,7 +60,7 @@ const Service = () => {
             type="text"
             {...register("name")}
             placeholder="City/Hotel/Resort/Area"
-            className="bg-transparent border-2 border-white w-full text-white focus:outline-none rounded-md py-2 text-xs pl-2"
+            className="bg-white border-2 border-white w-full text-black focus:outline-none rounded-md py-2 text-xs pl-2"
           />
         </div>
         <div className="text-left px-2 my-2">
@@ -64,15 +68,15 @@ const Service = () => {
             type="number"
             {...register("money")}
             placeholder="Budget"
-            className="bg-transparent border-2 border-white w-full text-white focus:outline-none rounded-md py-2 text-xs pl-2"
+            className="bg-white border-2 border-white w-full text-black focus:outline-none rounded-md py-2 text-xs pl-2"
           />
         </div>
         <div className="text-left px-2 my-2">
           <button
             type="submit"
-            className="bg-white text-red-500 font-[Poppins] duration-500 px-6 py-2 hover:bg-red-500 hover:text-white rounded"
+            className="text-white bg-red-500 font-[Poppins] duration-500 px-6 py-2 hover:bg-red-500 hover:text-white rounded"
           >
-            Search
+            <FaSearch></FaSearch>
           </button>
         </div>
       </form>
@@ -89,7 +93,7 @@ const Service = () => {
           <div></div>
         </div>
       ) : (
-        <div className="mx-auto gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-10">
+        <div className="mx-auto gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10 px-5">
           {services.map((service, idx) => (
             <ServiceCard key={idx} service={service}></ServiceCard>
           ))}

@@ -4,7 +4,7 @@ import { FaStar } from 'react-icons/fa';
 
 const ServiceCard = ({service}) => {
     return (
-        <div key={service._id} className="w-full rounded-md shadow-md flex flex-col pb-4">
+        <div key={service._id} className="w-full rounded-md shadow-md flex flex-col pb-4 bg-white">
         <div>
           <img
             src={service.image}
@@ -13,22 +13,22 @@ const ServiceCard = ({service}) => {
           />
         </div>
         <div className="px-4 pt-4">
-          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="text-2xl font-medium tracking-tight text-black font-">
             {service.title}
           </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
+          <p className="font-bold text-sm text-gray-700 dark:text-gray-400">
             {service.details.slice(0, 100)}
           </p>
           <div className="flex flex-wrap gap-2 my-4">
-            <span className="text-white font-medium">
+            <span className="text-purple-500 font-medium">
               ${service.price}
             </span>
-            <div className="flex items-center gap-1 px-2 bg-teal-400 rounded-sm text-white">
+            <div className="flex items-center gap-1 px-2 rounded-sm text-pink-400">
               <FaStar></FaStar> {service.ratings}
             </div>
           </div>
-          <Link to={`#`}>
-            <button className="bg-red-500 text-white px-3 py-2">View Details</button>
+          <Link to={`/hotels/${service.title}`} className="text-red-500 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700">
+            View Details
           </Link>
         </div>
       </div>
