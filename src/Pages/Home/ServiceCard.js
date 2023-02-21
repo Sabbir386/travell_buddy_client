@@ -17,7 +17,7 @@ const ServiceCard = ({service}) => {
             {service.title}
           </h5>
           <p className="font-bold text-sm text-gray-700 dark:text-gray-400">
-            {service.details.slice(0, 100)}
+            {service.details.slice(0, 70)}
           </p>
           <div className="flex flex-wrap gap-2 my-4">
             <span className="text-purple-500 font-medium">

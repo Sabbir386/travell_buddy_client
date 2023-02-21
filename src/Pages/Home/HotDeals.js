@@ -7,7 +7,7 @@ import campaign3 from "../../assets/campaign_STAYINT0223BSTAY0223.jpg";
 
 const HotDeals = () => {
   return (
-    <div className="p-5">
+    <div className="p-5 max-w-[1440px] mx-auto">
       <h2 className="text-violet-600 my-4 text-4xl font-bold">Hot Deals</h2>
 
       <div>

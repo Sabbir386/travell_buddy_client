@@ -45,8 +45,8 @@ const Service = () => {
   //         return data
   //     }
   // });
-  if(loading){
-    return <h6>Loading...</h6>
+  if (loading) {
+    return <h6>Loading...</h6>;
   }
 
   return (
@@ -80,6 +80,13 @@ const Service = () => {
           </button>
         </div>
       </form>
+      <div className="max-w-[1440px] mx-auto p-5">
+        <img
+          src="https://i.ibb.co/L00pCxW/full-shot-woman-taking-selfie.jpg"
+          alt=""
+          className="w-full h-40 object-cover rounded-md"
+        />
+      </div>
 
       {loading ? (
         <div className="lds-roller">
@@ -93,8 +100,8 @@ const Service = () => {
           <div></div>
         </div>
       ) : (
-        <div className="mx-auto gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10 px-5">
-          {services.map((service, idx) => (
+        <div className="mx-auto gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10 px-5 max-w-[1440px]">
+          {services.slice(0, 4).map((service, idx) => (
             <ServiceCard key={idx} service={service}></ServiceCard>
           ))}
         </div>
