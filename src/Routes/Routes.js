@@ -5,6 +5,7 @@ import HotelDetails from "../Pages/Details/HotelDetails";
 import Contact from "../Pages/Home/Contact";
 import Home from "../Pages/Home/Home";
 import Hotels from "../Pages/Hotels/Hotels";
+import Login from "../Pages/Login/Login";
 
 
 export const router = createBrowserRouter([
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
                 loader:(({params}) => fetch(`https://tour-travel-server-two.vercel.app/hotels/${params.id}`)),
                 element: <Booking></Booking>
             },
+            {
+                path:'/login',
+                element: <Login></Login>
+            }
         ]
     }
 ])
