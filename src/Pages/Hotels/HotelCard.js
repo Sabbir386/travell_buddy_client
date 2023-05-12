@@ -24,7 +24,7 @@ const HotelCard = ({service}) => {
               <FaStar></FaStar> 5
             </div>
           </div>
-          <Link to={`/booking/${service.title}`} className="text-red-500 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700">
+          <Link to={`/booking/${service._id}`} className="text-red-500 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700">
             Book now
           </Link>
             </div>

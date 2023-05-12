@@ -3,17 +3,21 @@ import React, { useContext, useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
     const {providerLogin,signIn }  = useContext(AuthContext);
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const googleProvider = new GoogleAuthProvider();
+    const [token] = useToken(loginUserEmail);
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || "/";
 
-
+    if(token){
+        navigate(from,{replace: true});
+      }
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)
         .then((result) => {
@@ -24,15 +28,15 @@ const Login = () => {
           }
     
           setLoginUserEmail(user.email);
-          fetch(`https://rani-bhobani-server.vercel.app/user?email=${user.email}`)
+          fetch(`https://tour-travel-server-two.vercel.app/user?email=${user.email}`)
           .then(res => res.json())
           .then(data =>{
             
-            // if(data.feedback < 1){
-            //     // saveUser(user.displayName, user.email,'user');
+            if(data.feedback < 1){
+                saveUser(user.displayName, user.email,'user');
                 
-            // }
-            navigate('/hotels');
+            }
+            // navigate('/hotels');
           })
 
         })
@@ -40,20 +44,20 @@ const Login = () => {
         
       };
 
-    //   const saveUser = (name, email,role) =>{
-    //     const user ={name, email,role};
-    //     fetch('https://rani-bhobani-server.vercel.app/users', {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //     .then(res => res.json())
-    //     .then(data =>{
-    //         // setCreatedUserEmail(email);
-    //     })
-    // }
+      const saveUser = (name, email,role) =>{
+        const user ={name, email,role};
+        fetch('https://tour-travel-server-two.vercel.app/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            // setCreatedUserEmail(email);
+        })
+    }
     return (
         <div className='max-w-[1440px] mx-auto px-5 py-24 md:py-30'>
             <button className='btn btn-outline px-4 py-2 mx-auto  text-white rounded-md shadow-lg block bg-red-500' onClick={handleGoogleSignIn}> <span className="flex items-center gap-3"> <span> CONTINUE WITH </span> <FaGoogle></FaGoogle> </span>    </button>

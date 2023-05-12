@@ -3,7 +3,7 @@ import { FaStar } from 'react-icons/fa';
 import { Link, useLoaderData } from 'react-router-dom';
 
 const HotelDetails = () => {
-    const {image,title,details,price,ratings,iframe_link} = useLoaderData();
+    const {_id,image,title,details,price,ratings,iframe_link} = useLoaderData();
     // console.log(userData);
     return (
         <div className='px-5'>
@@ -18,8 +18,8 @@ const HotelDetails = () => {
                     <p className='text-sm text-gray-500'>
                         {details}
                     </p>
-                    <Link to={`/hotels/${title}`} className= "inline-block text-red-500 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700">
-            View Details
+                    <Link to={`/booking/${_id}`} className= "inline-block text-red-500 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700">
+            Book Now
           </Link>
                 </div>
             </div>

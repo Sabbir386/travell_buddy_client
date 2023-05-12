@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { FaBars, FaWindowClose } from "react-icons/fa";
 import { useContext } from "react";
-import { AuthContext } from '../../Contexts/AuthProvider';
+import { AuthContext } from "../../Contexts/AuthProvider";
 import { FcExport } from "react-icons/fc";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [navbar, setNavbar] = useState(false);
-  const { user,logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const handleLogOut = () => {
     setOpen(!open);
     logOut()
-        .then(() => { <Navigate to={'/'}></Navigate> })
-        .catch(err => console.log(err));
-}
+      .then(() => {
+        <Navigate to={"/"}></Navigate>;
+      })
+      .catch((err) => console.log(err));
+  };
 
   const changeBackground = () => {
     if (window.scrollY >= 66) {
@@ -73,22 +75,46 @@ const Header = () => {
               Hotel
             </Link>
           </li>
-          {
-            user ?
-            
-              <li className="mx-4 my-6 md:my-0">
-              <Link onClick={handleLogOut} className="text-lg hover:text-orange-400 text-gray-700 duration">
-                <span className='flex items-center gap-1 text-rose-500'><img src={user?.photoURL} alt="" className='w-8 h-8' title={user.displayName}/> <span>LogOut  </span><FcExport></FcExport></span>
+          {user ? (
+            <>
+            <li className="mx-4 my-6 md:my-0">
+              <Link
+                onClick={() => setOpen(!open)}
+                to={"/dashboard"}
+                className="text-sm hover:text-red-500 text-red-400 duration"
+              >
+                Dashboard
               </Link>
             </li>
-            :
+              <li className="mx-4 my-6 md:my-0">
+                <Link
+                  onClick={handleLogOut}
+                  className="text-lg hover:text-orange-400 text-gray-700 duration"
+                >
+                  <span className="flex items-center gap-1 text-rose-500">
+                    <img
+                      src={user?.photoURL}
+                      alt=""
+                      className="w-8 h-8"
+                      title={user.displayName}
+                    />{" "}
+                    <span>LogOut </span>
+                    <FcExport></FcExport>
+                  </span>
+                </Link>
+              </li>
+            </>
+          ) : (
             <li className="mx-4 my-6 md:my-0">
-              <Link onClick={() => setOpen(!open)} to={'/login'} className="text-lg hover:text-white duration bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-md shadow-md hover:shadow-lg">
+              <Link
+                onClick={() => setOpen(!open)}
+                to={"/login"}
+                className="text-lg hover:text-white duration bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-md shadow-md hover:shadow-lg"
+              >
                 Login
               </Link>
             </li>
-            
-          }
+          )}
         </ul>
       </nav>
     </header>

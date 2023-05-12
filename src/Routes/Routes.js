@@ -6,6 +6,9 @@ import Contact from "../Pages/Home/Contact";
 import Home from "../Pages/Home/Home";
 import Hotels from "../Pages/Hotels/Hotels";
 import Login from "../Pages/Login/Login";
+import DashboardLayout from "../Layout/DashboardLayout";
+import PrivateRoutes from "./PrivateRoutes";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 
 export const router = createBrowserRouter([
@@ -39,6 +42,16 @@ export const router = createBrowserRouter([
                 path:'/login',
                 element: <Login></Login>
             }
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard></Dashboard>
+            },
         ]
     }
 ])
