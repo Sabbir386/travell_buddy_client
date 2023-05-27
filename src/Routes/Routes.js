@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/hotels/:id',
-                loader:(({params}) => fetch(`https://tour-travel-server-two.vercel.app/hotels/${params.id}`)),
+                loader:(({params}) => fetch(`http://localhost:5000/hotels/${params.id}`)),
                 element: <HotelDetails></HotelDetails>
             },
             {
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/booking/:id',
-                loader:(({params}) => fetch(`https://tour-travel-server-two.vercel.app/hotels/${params.id}`)),
+                loader:(({params}) => fetch(`http://localhost:5000/hotels/${params.id}`)),
                 element: <Booking></Booking>
             },
             {

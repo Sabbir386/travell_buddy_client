@@ -32,7 +32,7 @@ const NewHotel = () => {
                 userId:''
                 
               };
-              fetch("https://tour-travel-server-two.vercel.app/hotels", {
+              fetch("http://localhost:5000/hotels", {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const AllHotel = () => {
     const [hotels, setHotels] = useState([]);
     useEffect(() => {
-        fetch(`https://tour-travel-server-two.vercel.app/hotels`, {
+        fetch(`http://localhost:5000/hotels`, {
           headers: {
             "content-type": "application/json",
             authorization: `bearer ${localStorage.getItem("accessToken")}`,

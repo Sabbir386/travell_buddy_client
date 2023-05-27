@@ -22,7 +22,7 @@ const Service = () => {
     };
     setLoading(true);
     fetch(
-      `https://tour-travel-server-two.vercel.app/hotels/search?name=${data.name}&money=${data.money}`
+      `http://localhost:5000/hotels/search?name=${data.name}&money=${data.money}`
     )
       .then((res) => res.json())
       .then((data) => setServices(data));
@@ -31,7 +31,7 @@ const Service = () => {
   };
   useEffect(() => {
     setLoading(true);
-    fetch(`https://tour-travel-server-two.vercel.app/hotels`)
+    fetch(`http://localhost:5000/hotels`)
       .then((res) => res.json())
       .then((data) => setServices(data));
     setLoading(false);
@@ -40,7 +40,7 @@ const Service = () => {
   //   const { data: servicesData = services, refetch, isLoading } = useQuery({
   //     queryKey: ['services'],
   //     queryFn: async () => {
-  //         const res = await fetch(`https://tour-travel-server-two.vercel.app/hotels`);
+  //         const res = await fetch(`http://localhost:5000/hotels`);
   //         const data = await res.json();
   //         return data
   //     }

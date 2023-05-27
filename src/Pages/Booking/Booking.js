@@ -102,7 +102,7 @@ const Booking = () => {
         };
 
         console.log(bookings);
-        fetch("https://tour-travel-server-two.vercel.app/bookings", {
+        fetch("http://localhost:5000/bookings", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -116,7 +116,7 @@ const Booking = () => {
             reset();
             navigate("");
           });
-        // // fetch(`https://tour-travel-server-two.vercel.app/ssl-request`, {
+        // // fetch(`http://localhost:5000/ssl-request`, {
         // //   method: "GET",
         // //   headers: {
         // //     "content-type": "application/json",
@@ -140,7 +140,7 @@ const Booking = () => {
       const {id} = useParams();
       // console.log(id);
       useEffect(() => {
-        fetch(`https://tour-travel-server-two.vercel.app/rooms/${id}`, {
+        fetch(`http://localhost:5000/rooms/${id}`, {
           headers: {
             "content-type": "application/json",
             authorization: `bearer ${localStorage.getItem("accessToken")}`,

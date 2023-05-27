@@ -24,7 +24,7 @@ const Dashboard = () => {
   const [totalData, setTotalData] = useState([]);
   const [isAdmin] = useAdmin(user?.email);
   useEffect(() => {
-    fetch(`https://tour-travel-server-two.vercel.app/dashboard?email=${user.email}`, {
+    fetch(`http://localhost:5000/dashboard?email=${user.email}`, {
       headers: {
         "content-type": "application/json",
         authorization: `bearer ${localStorage.getItem("accessToken")}`,

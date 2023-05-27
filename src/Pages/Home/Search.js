@@ -10,7 +10,7 @@ const Search = () => {
             money: data.money
          }
 
-         fetch(`https://tour-travel-server-two.vercel.app/hotels/search?name=${data.name}&money=${data.money}`)
+         fetch(`http://localhost:5000/hotels/search?name=${data.name}&money=${data.money}`)
          .then(res => res.json())
          .then(data => console.log(data))
          reset();

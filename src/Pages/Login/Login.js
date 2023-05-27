@@ -28,7 +28,7 @@ const Login = () => {
           }
     
           setLoginUserEmail(user.email);
-          fetch(`https://tour-travel-server-two.vercel.app/user?email=${user.email}`)
+          fetch(`http://localhost:5000/user?email=${user.email}`)
           .then(res => res.json())
           .then(data =>{
             
@@ -46,7 +46,7 @@ const Login = () => {
 
       const saveUser = (name, email,role) =>{
         const user ={name, email,role};
-        fetch('https://tour-travel-server-two.vercel.app/users', {
+        fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

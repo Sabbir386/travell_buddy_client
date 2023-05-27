@@ -5,7 +5,7 @@ import { useState } from 'react';
 const AllRoom = () => {
     const [rooms, setrooms] = useState([]);
     useEffect(() => {
-        fetch(`https://tour-travel-server-two.vercel.app/rooms`, {
+        fetch(`http://localhost:5000/rooms`, {
           headers: {
             "content-type": "application/json",
             authorization: `bearer ${localStorage.getItem("accessToken")}`,

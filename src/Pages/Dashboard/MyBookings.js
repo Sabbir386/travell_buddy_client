@@ -14,7 +14,7 @@ const MyBookings = () => {
   // console.log(user)
   useEffect(() => {
     setLoading(true)
-    fetch(`https://tour-travel-server-two.vercel.app/informations/${user.email}`)
+    fetch(`http://localhost:5000/informations/${user.email}`)
       .then((res) => res.json())
       .then((data) => setInfos(data));
       setLoading(false)
@@ -88,7 +88,7 @@ const MyBookings = () => {
                       href={
                         info.status === "paid"
                           ? "#"
-                          : `https://tour-travel-server-two.vercel.app/ssl-request?infos=${info._id}`
+                          : `http://localhost:5000/ssl-request?infos=${info._id}`
                       }
                       className={`px-2 py-3 text-white rounded-md ${
                         info.status === "paid" ? "bg-green-500" : `bg-yellow-500`

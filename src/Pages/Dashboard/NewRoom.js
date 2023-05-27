@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const NewRoom = () => {
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
-    fetch(`https://tour-travel-server-two.vercel.app/hotels`, {
+    fetch(`http://localhost:5000/hotels`, {
       headers: {
         "content-type": "application/json",
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -42,7 +42,7 @@ const NewRoom = () => {
           image: data.image,
           roomPrice: data.price,
         };
-        fetch("https://tour-travel-server-two.vercel.app/rooms", {
+        fetch("http://localhost:5000/rooms", {
           method: "POST",
           headers: {
             "content-type": "application/json",
