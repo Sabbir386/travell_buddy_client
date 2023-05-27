@@ -10,7 +10,9 @@ import offer3 from '../../assets/img_350915af-a1be-4768-853c-24eb851b7098.png'
 
 const Offer = () => {
     return (
+      
         <div className='p-5 max-w-[1440px] mx-auto'>
+          <h2 className="text-violet-800 my-4 text-4xl font-bold">Exclusive Offers</h2>
             <Swiper
       spaceBetween={50}
     //   slidesPerView={2}

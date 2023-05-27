@@ -18,13 +18,13 @@ const HotelCard = ({service}) => {
           </p>
           <div className="flex flex-wrap gap-2 my-4">
             <span className="text-purple-500 font-medium">
-              $500
+              {service.price} TK
             </span>
             <div className="flex items-center gap-1 px-2 rounded-sm text-pink-400">
               <FaStar></FaStar> 5
             </div>
           </div>
-          <Link to={`/booking/${service._id}`} className="text-red-500 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700">
+          <Link to={`/booking/${service._id}`} className="text-violet-800 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-violet-500  px-10 py-2 border  border-violet-800 hover:bg-violet-800 hover:text-white rounded duration-700">
             Book now
           </Link>
             </div>

@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'calistoga': ['Calistoga', 'cursive']
+        'calistoga': ['Calistoga', 'cursive'],
+        'dancingScript': ['Dancing Script', 'cursive'],
       },
     },
   },

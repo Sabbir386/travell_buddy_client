@@ -42,8 +42,9 @@ const Header = () => {
           <Link
             to={"/"}
             className="text-4xl cursor-pointer text-white font-bold"
+            data-aos='fade-down' data-duration="600"
           >
-            <span className="text-red-500">Travel</span> Buddy
+            <span className="text-violet-800">Tour &</span> Travel
           </Link>
           <span
             onClick={() => setOpen(!open)}
@@ -54,23 +55,23 @@ const Header = () => {
         </div>
         <ul
           className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static md:bg-transparent  left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
-            open ? "top-20 bg-[#000000] z-1" : "top-[-490px]"
+            open ? "top-20 bg-gray-500 z-1" : "top-[-490px]"
           }`}
         >
-          <li className="mx-4 my-6 md:my-0">
+          <li className="mx-4 my-6 md:my-0"  data-aos='fade-down' data-duration="900">
             <Link
               onClick={() => setOpen(!open)}
               to={"/"}
-              className="text-sm hover:text-red-500 text-red-400 duration"
+              className="text-lg hover:text-white text-violet-800"
             >
               Home
             </Link>
           </li>
-          <li className="mx-4 my-6 md:my-0">
+          <li className="mx-4 my-6 md:my-0"  data-aos='fade-down' data-duration="1200">
             <Link
               onClick={() => setOpen(!open)}
               to={"/hotels"}
-              className="text-sm hover:text-red-500 text-red-400 duration"
+              className="text-lg hover:text-white text-violet-800"
             >
               Hotel
             </Link>
@@ -81,7 +82,7 @@ const Header = () => {
               <Link
                 onClick={() => setOpen(!open)}
                 to={"/dashboard"}
-                className="text-sm hover:text-red-500 text-red-400 duration"
+                className="text-lg hover:text-white text-violet-800"
               >
                 Dashboard
               </Link>
@@ -105,11 +106,11 @@ const Header = () => {
               </li>
             </>
           ) : (
-            <li className="mx-4 my-6 md:my-0">
+            <li className="mx-4 my-6 md:my-0" data-aos='fade-down' data-duration="1500">
               <Link
                 onClick={() => setOpen(!open)}
                 to={"/login"}
-                className="text-lg hover:text-white duration bg-orange-400 hover:bg-orange-500 text-white px-4 py-2 rounded-md shadow-md hover:shadow-lg"
+                className="text-lg text-white border border-violet-800 duration  bg-violet-800 px-4 py-2 rounded-md hover:shadow-md hover:shadow-violet-500 duration-500"
               >
                 Login
               </Link>

@@ -42,8 +42,8 @@ const Hotels = () => {
         <input
           type="text"
           {...register('name')}
-          placeholder="City/Hotel/Resort/Area"
-          className="bg-transparent border-2 border-red-500 w-full text-black focus:outline-none rounded-md py-3 text-xs pl-2"
+          placeholder="Hotel"
+          className="bg-transparent border-2 border-violet-800 w-full text-black focus:outline-none rounded-md py-3 text-xs pl-2"
         />
       </div>
       <div className="text-left px-2 my-2">
@@ -52,11 +52,11 @@ const Hotels = () => {
           {...register('money')}
           
           placeholder="Budget"
-          className="bg-transparent border-2 border-red-500 w-full text-black focus:outline-none rounded-md py-3 text-xs pl-2"
+          className="bg-transparent border-2 border-violet-800 w-full text-black focus:outline-none rounded-md py-3 text-xs pl-2"
         />
       </div>
       <div className="text-left px-2 my-2">
-        <button type="submit" className="bg-white border-2 border-red-500 text-red-500 font-[Poppins] duration-500 px-6 py-2 hover:bg-red-500 hover:text-white rounded">Search</button>
+        <button type="submit" className="bg-violet-800 border-2 border-violet-800 font-[Poppins] duration-500 px-6 py-2  text-white rounded">Search</button>
       </div>
     </form>
       {loading ? (
@@ -72,7 +72,7 @@ const Hotels = () => {
         </div>
       ) : (
         <div className="mx-auto flex flex-col max-w-[1440px]">
-          {services.slice(0, 4).map((service, idx) => (
+          {services.map((service, idx) => (
             <HotelCard key={idx} service={service}></HotelCard>
           ))}
         </div>

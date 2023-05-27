@@ -1,62 +1,60 @@
 import moment from "moment/moment";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import AuthProvider, { AuthContext } from "../../Contexts/AuthProvider";
 import { useContext } from "react";
 const Booking = () => {
-  const { _id,image, title, details, price, ratings, iframe_link } =
+  const { _id, image, title, details, price, ratings, iframe_link } =
     useLoaderData();
 
-    const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const [roomType, setRoomType] = useState("AC");
-  const [beddingType, setBeddingType] = useState("");
+  const [beddingType, setBeddingType] = useState("Single");
   const [roomNumber, setRoomNumber] = useState(1);
   const [mealType, setMealType] = useState("");
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
   const [dateDifference, setDateDifference] = useState(1);
-
+  const [rooms, setrooms] = useState([]);
+  const [mainPrice,setPrice] = useState(0); 
   // console.log(checkIn,checkOut);
   const totalAmount =
-    
     (roomType === "AC"
-      ? price * 0.3
-      : price * 0.15 + beddingType === "Single"
-      ? price * 0.1
-      : price * 0.2) +
-    price * 0.5 * roomNumber +
+      ? mainPrice * 0.3
+      : mainPrice * 0.15 + beddingType === "Single"
+      ? mainPrice * 0.1
+      : mainPrice * 0.2) +
+      mainPrice * 0.5 * roomNumber +
     (mealType === "Day"
-      ? price * 0.1
-      : mealType === "Night"
-      ? price * 0.1
-      : price * 0.15) +
-      dateDifference * parseInt(price);
+      ? mainPrice * 0.1
+      : mainPrice === "Night"
+      ? mainPrice * 0.1
+      : mainPrice * 0.15) +
+    dateDifference * parseInt(mainPrice);
 
-    const checkinvalue = (event) =>{
-      setCheckIn(event.target.value);
-      calculateDateDifference(event.target.value, checkOut);
-    }
-    const checkoutvalue = (event) =>{
-      setCheckOut(event.target.value);
-      calculateDateDifference(checkIn, event.target.value);
-    }
+  const checkinvalue = (event) => {
+    setCheckIn(event.target.value);
+    calculateDateDifference(event.target.value, checkOut);
+  };
+  const checkoutvalue = (event) => {
+    setCheckOut(event.target.value);
+    calculateDateDifference(checkIn, event.target.value);
+  };
 
-    const calculateDateDifference = (startDate, endDate) => {
-      const startDateObj = new Date(startDate);
-      const endDateObj = new Date(endDate);
-      const differenceInTime = endDateObj.getTime() - startDateObj.getTime();
-      const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-      setDateDifference(differenceInDays);
-    };
+  const calculateDateDifference = (startDate, endDate) => {
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    const differenceInTime = endDateObj.getTime() - startDateObj.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    setDateDifference(differenceInDays);
+  };
 
-    // console.log(dateDifference);
-
-
+  // console.log(dateDifference);
 
   const {
     register,
@@ -90,7 +88,7 @@ const Booking = () => {
           address: data.address,
           remarks: data.remarks,
           hotelId: _id,
-          hotel:title,
+          hotel: title,
           roomtype: data.roomtype,
           beddingtype: data.beddingtype,
           roomnumber: data.roomnumber,
@@ -100,7 +98,7 @@ const Booking = () => {
           dayCount: dateDifference,
           amount: totalAmount,
           postingTime: Date().toLocaleString(),
-          status: "pending",
+          status: "unpaid",
         };
 
         console.log(bookings);
@@ -114,11 +112,9 @@ const Booking = () => {
           .then((res) => res.json())
           .then((result) => {
             Swal.fire("Saved!", "", "success");
-            toast.success(
-              "Your Booking data Submitted Successfully !"
-            );
+            toast.success("Your Booking data Submitted Successfully !");
             reset();
-            navigate('');
+            navigate("");
           });
         // // fetch(`https://tour-travel-server-two.vercel.app/ssl-request`, {
         // //   method: "GET",
@@ -133,6 +129,31 @@ const Booking = () => {
     });
   };
 
+  const handleRoom = (data) => {
+    const datas = data.split(',')
+    setRoomType(datas[0]);
+    setBeddingType(datas[1]);
+    setPrice(parseInt(datas[2]));
+    // console.log(roomType,beddingType,mainPrice);
+  }
+  
+      const {id} = useParams();
+      // console.log(id);
+      useEffect(() => {
+        fetch(`https://tour-travel-server-two.vercel.app/rooms/${id}`, {
+          headers: {
+            "content-type": "application/json",
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setrooms(data);
+          });
+      }, []);
+
+      
+
   return (
     <div className="max-w-[1440px] mx-auto px-5 py-24 md:py-30">
       <form
@@ -141,12 +162,14 @@ const Booking = () => {
       >
         <div className="w-full md:w-2/3 flex flex-col gap-4">
           <div className="bg-white p-4 rounded-md">
-            <h3 className="font-bold text-2xl ">Personal Details</h3>
+            <h3 className="font-bold text-2xl text-violet-800">
+              Personal Details
+            </h3>
             <div className="grid grid-cols-2 gap-2">
               <div className="my-4">
                 <input
                   type="text"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-black focus:outline-none"
                   placeholder="First Name"
                   {...register("fname")}
                   defaultValue={user?.displayName}
@@ -155,7 +178,7 @@ const Booking = () => {
               <div className="my-4">
                 <input
                   type="text"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-black focus:outline-none"
                   placeholder="Last Name"
                   {...register("lname")}
                 />
@@ -163,7 +186,7 @@ const Booking = () => {
               <div className="my-4">
                 <input
                   type="number"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-black focus:outline-none"
                   placeholder="Phone"
                   {...register("number")}
                 />
@@ -171,7 +194,7 @@ const Booking = () => {
               <div className="my-4">
                 <input
                   type="email"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-black focus:outline-none"
                   placeholder="Email"
                   {...register("email")}
                   value={user?.email}
@@ -180,14 +203,14 @@ const Booking = () => {
               </div>
               <div className="my-4">
                 <textarea
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-black focus:outline-none"
                   placeholder="Address"
                   {...register("address")}
                 ></textarea>
               </div>
               <div className="my-4">
                 <textarea
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-black focus:outline-none"
                   placeholder="Reamrks"
                   {...register("remarks")}
                 ></textarea>
@@ -201,13 +224,30 @@ const Booking = () => {
             </button> */}
           </div>
           <div className="bg-white p-4 rounded-md">
-            <h3 className="font-bold text-2xl ">Reservation Details</h3>
+            <h3 className="font-bold text-2xl  text-violet-800">
+              Reservation Details
+            </h3>
+            <div className="flex flex-wrap gap-2">
+                  {
+                    rooms.map((room,idx) => <div key={idx}>
+                    <label className="flex flex-col md:flex-row items-center gap-2 bg-gray-200 px-2 py-4 rounded-md shadow-md">
+                        <input type="radio" value={[room.roomType,room.beddingType,room.roomPrice]} name="room" onChange={(e)=>handleRoom(e.target.value)}/>
+                        <div>
+                        <img src={room.image} alt="" className="h-20 w-28"/>
+                        <p>{room.roomType}</p>
+                        <p>{room.beddingType} Bed</p>
+                        <p className="font-bold">{room.roomPrice} TK</p>
+                        </div>
+                      </label>
+                  </div>)
+                  }
+                  </div>
             <div className="grid grid-cols-2 gap-2">
-              <div className="my-4">
+              {/* <div className="my-4">
                 <label htmlFor="">Room Type</label>
                 <select
                   type="text"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-violet-800 focus:outline-none"
                   {...register("roomtype", {
                     onChange: (e) => setRoomType(e.target.value),
                   })}
@@ -220,7 +260,7 @@ const Booking = () => {
                 <label htmlFor="">Bedding Type</label>
                 <select
                   type="text"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-violet-800 focus:outline-none"
                   {...register("beddingtype", {
                     onChange: (event) => setBeddingType(event.target.value),
                   })}
@@ -228,12 +268,12 @@ const Booking = () => {
                   <option value="Single">Single</option>
                   <option value="Double">Double</option>
                 </select>
-              </div>
+              </div> */}
               <div className="my-4">
                 <label htmlFor="">Number of Room</label>
                 <select
                   type="text"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-violet-800 focus:outline-none"
                   {...register("roomnumber", {
                     onChange: (event) => setRoomNumber(event.target.value),
                   })}
@@ -247,7 +287,7 @@ const Booking = () => {
                 <label htmlFor="">Meal Type</label>
                 <select
                   type="text"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-violet-800 focus:outline-none"
                   {...register("mealtype", {
                     onChange: (event) => setMealType(event.target.value),
                   })}
@@ -261,7 +301,7 @@ const Booking = () => {
                 <label htmlFor="">Check In</label>
                 <input
                   type="date"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-violet-800 focus:outline-none"
                   placeholder="First Name"
                   {...register("checkin", {
                     onChange: checkinvalue,
@@ -273,7 +313,7 @@ const Booking = () => {
                 <label htmlFor="">Check Out</label>
                 <input
                   type="date"
-                  className="border-0 bg-transparent border-b-2 border-b-blue-500 w-full text-black focus:outline-none"
+                  className="border-0 bg-transparent border-b-2 border-b-violet-800 w-full text-violet-800 focus:outline-none"
                   placeholder="First Name"
                   {...register("checkout", {
                     onChange: checkoutvalue,
@@ -317,13 +357,13 @@ const Booking = () => {
             <div className="flex justify-between">
               <span>{roomType} Room</span>
               <span>
-                BDT {roomType === "AC" ? price * 0.3 : price * 0.15} TK
+                BDT {roomType === "AC" ? mainPrice * 0.3 : mainPrice * 0.15} TK
               </span>
             </div>
             <div className="flex justify-between">
               <span>{beddingType} Bedding</span>
               <span className="text-green-400">
-                BDT {beddingType === "Single" ? price * 0.1 : price * 0.2} TK
+                BDT {beddingType === "Single" ? mainPrice * 0.1 : mainPrice * 0.2} TK
               </span>
             </div>
             <div className="flex justify-between">
@@ -335,16 +375,16 @@ const Booking = () => {
               <span>
                 BDT{" "}
                 {mealType === "Day"
-                  ? price * 0.1
+                  ? mainPrice * 0.1
                   : mealType === "Night"
-                  ? price * 0.1
-                  : price * 0.15}{" "}
+                  ? mainPrice * 0.1
+                  : mainPrice * 0.15}{" "}
                 TK
               </span>
             </div>
             <div className="flex justify-between">
               <span>Basic Price</span>
-              <span>BDT {price} TK</span>
+              <span>BDT {mainPrice} TK</span>
             </div>
             <div className="flex justify-between">
               <span>Check In</span>
@@ -354,20 +394,22 @@ const Booking = () => {
               <span>Check Out</span>
               <span> {checkOut} </span>
             </div>
-            <div className="w-full flex justify-between bg-blue-900 text-white py-3 px-2 my-1">
+            <div className="w-full flex justify-between text-lg font-bold text-violet-800 py-3 px-2 my-1">
               <span>Total</span>
-              <span>BDT {totalAmount}</span>
+              <span>BDT {totalAmount} TK</span>
             </div>
-            {
-              user ? 
-              <button className="w-full flex justify-center bg-orange-300 text-white py-3 px-2 my-1">
-              Confirm Booking
-            </button> 
-            :
-              <Link to={'/login'} className="w-full flex justify-center bg-orange-300 text-white py-3 px-2 my-1">Please Login To Confirm</Link> 
-            }
-
-            
+            {user ? (
+              <button className="w-full flex justify-center bg-violet-800 text-white py-3 px-2 my-1">
+                Confirm Booking
+              </button>
+            ) : (
+              <Link
+                to={"/login"}
+                className="w-full flex justify-center bg-orange-300 text-white py-3 px-2 my-1"
+              >
+                Please Login To Confirm
+              </Link>
+            )}
           </div>
         </div>
       </form>

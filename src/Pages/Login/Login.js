@@ -60,7 +60,8 @@ const Login = () => {
     }
     return (
         <div className='max-w-[1440px] mx-auto px-5 py-24 md:py-30'>
-            <button className='btn btn-outline px-4 py-2 mx-auto  text-white rounded-md shadow-lg block bg-red-500' onClick={handleGoogleSignIn}> <span className="flex items-center gap-3"> <span> CONTINUE WITH </span> <FaGoogle></FaGoogle> </span>    </button>
+            
+            <button className='btn btn-outline px-4 py-2 mx-auto   block text-violet-800 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-violet-500 border  border-violet-800 hover:bg-violet-800 hover:text-white rounded duration-700' onClick={handleGoogleSignIn}> <span className="flex items-center gap-3"> <span> CONTINUE WITH </span> <FaGoogle></FaGoogle> </span>    </button>
         </div>
     );
 };

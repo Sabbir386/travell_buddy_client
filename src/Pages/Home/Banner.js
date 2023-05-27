@@ -19,12 +19,14 @@ const Banner = () => {
             }}
           />
         </div>
-        <h1 className="text-white text-6xl font-extrabold mb-10 font-calistoga">
+        <h1 className="text-white text-6xl font-extrabold mb-10 font-calistoga"  data-aos='zoom-out' data-aos-duration="2000">
           Your Journey <br /> Begins Here
         </h1>
         <Link
-          to={"/contact"}
-          className="inline-block text-white backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700"
+          to={"/hotels"}
+          className="inline-block text-white backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-black  px-10 py-2 border  border-violet-800 hover:bg-violet-800 rounded duration-700"
+          data-aos="fade-up"
+     data-aos-duration="3000"
         >
           <span className="flex items-center gap-3">
             <span>Explore Now</span> <FaArrowRight></FaArrowRight>

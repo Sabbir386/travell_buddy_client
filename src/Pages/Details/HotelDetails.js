@@ -18,7 +18,7 @@ const HotelDetails = () => {
                     <p className='text-sm text-gray-500'>
                         {details}
                     </p>
-                    <Link to={`/booking/${_id}`} className= "inline-block text-red-500 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-red-500  px-10 py-2 border  border-red-500 hover:bg-red-500 hover:text-white rounded duration-700">
+                    <Link to={`/booking/${_id}`} className= "inline-block text-violet-800 backdrop-blur-sm hover:backdrop-blur-md shadow-sm shadow-violet-500  px-10 py-2 border  border-violet-800 hover:bg-violet-800 hover:text-white rounded duration-700">
             Book Now
           </Link>
                 </div>

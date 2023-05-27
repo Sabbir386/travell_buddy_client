@@ -53,13 +53,15 @@ const Service = () => {
     <div className="-mt-10">
       <form
         onSubmit={handleSubmit(searchHotel)}
-        className="flex flex-col  md:flex-row backdrop-blur-sm bg-white/30 text-white w-1/2 mx-auto py-3 rounded-md  items-center justify-center"
+        className="flex flex-col  md:flex-row backdrop-blur-sm bg-white/30 text-white w-1/4 mx-auto py-3 rounded-md  items-center justify-center"
+        data-aos='zoom-out'
+        data-aos-duration="2000"
       >
         <div className="text-left px-2 my-2">
           <input
             type="text"
             {...register("name")}
-            placeholder="City/Hotel/Resort/Area"
+            placeholder="Hotel"
             className="bg-white border-2 border-white w-full text-black focus:outline-none rounded-md py-2 text-xs pl-2"
           />
         </div>
@@ -74,7 +76,7 @@ const Service = () => {
         <div className="text-left px-2 my-2">
           <button
             type="submit"
-            className="text-white bg-red-500 font-[Poppins] duration-500 px-6 py-2 hover:bg-red-500 hover:text-white rounded"
+            className="text-white bg-violet-800 font-[Poppins] duration-500 px-6 py-2 hover:bg-red-500 hover:text-white rounded"
           >
             <FaSearch></FaSearch>
           </button>
@@ -86,6 +88,9 @@ const Service = () => {
           alt=""
           className="w-full h-40 object-cover rounded-md"
         />
+      </div>
+      <div className="max-w-[1440px] mx-auto px-5">
+        <h2 className="text-violet-800 my-4 text-4xl font-bold">Our Hotels</h2>
       </div>
 
       {loading ? (

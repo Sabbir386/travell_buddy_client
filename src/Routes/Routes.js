@@ -9,6 +9,11 @@ import Login from "../Pages/Login/Login";
 import DashboardLayout from "../Layout/DashboardLayout";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import MyBookings from "../Pages/Dashboard/MyBookings";
+import NewHotel from "../Pages/Dashboard/NewHotel";
+import AllHotel from "../Pages/Dashboard/AllHotel";
+import NewRoom from "../Pages/Dashboard/NewRoom";
+import AllRoom from "../Pages/Dashboard/AllRoom";
 
 
 export const router = createBrowserRouter([
@@ -41,6 +46,10 @@ export const router = createBrowserRouter([
             {
                 path:'/login',
                 element: <Login></Login>
+            },
+            {
+                path:'/success',
+                element: <Hotels></Hotels>
             }
         ]
     },
@@ -51,6 +60,26 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <Dashboard></Dashboard>
+            },
+            {
+                path: '/dashboard/all-booking',
+                element: <MyBookings></MyBookings>
+            },
+            {
+                path: '/dashboard/new-hotel',
+                element: <NewHotel></NewHotel>
+            },
+            {
+                path: '/dashboard/all-hotel',
+                element: <AllHotel></AllHotel>
+            },
+            {
+                path: '/dashboard/new-room',
+                element: <NewRoom></NewRoom>
+            },
+            {
+                path: '/dashboard/all-room',
+                element: <AllRoom></AllRoom>
             },
         ]
     }

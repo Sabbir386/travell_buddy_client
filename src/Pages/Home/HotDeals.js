@@ -4,11 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import campaign1 from "../../assets/campaign_FLYDOM0223.jpg";
 import campaign2 from "../../assets/campaign_STAYDOM0223.jpg";
 import campaign3 from "../../assets/campaign_STAYINT0223BSTAY0223.jpg";
+import { Link } from "react-router-dom";
 
 const HotDeals = () => {
   return (
     <div className="p-5 max-w-[1440px] mx-auto">
-      <h2 className="text-violet-600 my-4 text-4xl font-bold">Hot Deals</h2>
+      <h2 className="text-violet-800 my-4 text-4xl font-bold">Hot Deals</h2>
 
       <div>
         <Swiper
@@ -35,11 +36,11 @@ const HotDeals = () => {
                 </div>
                 
                 <div className="py-6">
-                    <h3 className="text-violet-600">On Domestic Flight Booking for Mobile Banking</h3>
+                    <h3 className="text-violet-800">On Domestic Flight Booking for Mobile Banking</h3>
                     <p className="text-xs">
                     On base fare, for bKash, Nagad, Rocket, tap & upay payment. Till 28 Feb’23
                     </p>
-                    <button className="px-4 py-2 rounded-md bg-violet-600 text-white text-base mt-1">Learn More</button>
+                    <Link to={'/hotels'} className="inline-block px-4 py-2 rounded-md bg-violet-800 text-white text-base mt-1">Learn More</Link>
                 </div>
             </div>
           </SwiperSlide>
@@ -55,7 +56,7 @@ const HotDeals = () => {
                     <p className="text-xs">
                     On base fare, for bKash, Nagad, Rocket, tap & upay payment. Till 28 Feb’23
                     </p>
-                    <button className="px-4 py-2 rounded-md bg-violet-600 text-white text-base mt-1">Learn More</button>
+                    <Link to={'/hotels'} className="inline-block px-4 py-2 rounded-md bg-violet-800 text-white text-base mt-1">Learn More</Link>
                 </div>
             </div>
           </SwiperSlide>
@@ -71,7 +72,7 @@ const HotDeals = () => {
                     <p className="text-xs">
                     On base fare, for bKash, Nagad, Rocket, tap & upay payment. Till 28 Feb’23
                     </p>
-                    <button className="px-4 py-2 rounded-md bg-violet-600 text-white text-base mt-1">Learn More</button>
+                    <Link to={'/hotels'} className="inline-block px-4 py-2 rounded-md bg-violet-800 text-white text-base mt-1">Learn More</Link>
                 </div>
             </div>
           </SwiperSlide>
