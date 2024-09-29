@@ -22,7 +22,6 @@ const Login = () => {
         providerLogin(googleProvider)
         .then((result) => {
           const user = result.user;
-    
           const currentUser = {
             userId: user.uid,
           }
